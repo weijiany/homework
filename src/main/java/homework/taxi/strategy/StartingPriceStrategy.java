@@ -1,6 +1,6 @@
-package strategy;
+package homework.taxi.strategy;
 
-import exception.DistanceIsMoreThanStartDistanceException;
+import homework.taxi.exception.DistanceIsMoreThanStartDistanceException;
 
 import java.time.LocalDateTime;
 

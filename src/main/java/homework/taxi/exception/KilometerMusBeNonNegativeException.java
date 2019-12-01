@@ -1,4 +1,4 @@
-package exception;
+package homework.taxi.exception;
 
 public class KilometerMusBeNonNegativeException extends DomainException {
 

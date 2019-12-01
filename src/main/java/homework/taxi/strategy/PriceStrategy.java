@@ -1,7 +1,7 @@
-package strategy;
+package homework.taxi.strategy;
 
-import exception.InvalidTimeException;
-import exception.KilometerMusBeNonNegativeException;
+import homework.taxi.exception.InvalidTimeException;
+import homework.taxi.exception.KilometerMusBeNonNegativeException;
 
 import java.time.LocalDateTime;
 

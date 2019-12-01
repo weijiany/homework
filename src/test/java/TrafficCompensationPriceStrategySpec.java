@@ -1,6 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import strategy.TrafficCompensationPriceStrategy;
+import homework.taxi.strategy.TrafficCompensationPriceStrategy;
 
 import java.time.LocalDateTime;
 

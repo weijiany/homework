@@ -1,9 +1,9 @@
-import exception.InvalidTimeException;
-import exception.KilometerMusBeNonNegativeException;
-import module.Car;
+import homework.taxi.exception.InvalidTimeException;
+import homework.taxi.exception.KilometerMusBeNonNegativeException;
+import homework.taxi.module.Car;
 import org.junit.Before;
 import org.junit.Test;
-import strategy.StrategyType;
+import homework.taxi.strategy.StrategyType;
 
 import java.time.LocalDateTime;
 

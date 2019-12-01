@@ -1,4 +1,4 @@
-package strategy;
+package homework.taxi.strategy;
 
 public interface StrategyConst {
     int PER_KILOMETER_COST = 1;

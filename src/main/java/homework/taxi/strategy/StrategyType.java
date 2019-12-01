@@ -1,6 +1,6 @@
-package strategy;
+package homework.taxi.strategy;
 
-import exception.StrategyTypeValueNotExistException;
+import homework.taxi.exception.StrategyTypeValueNotExistException;
 
 public enum StrategyType {
     STARING(1), DRIVE_AT_NIGHT(2), TRAFFIC_COMPENSATION(3);

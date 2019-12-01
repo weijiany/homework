@@ -1,6 +1,6 @@
-import exception.DistanceIsMoreThanStartDistanceException;
+import homework.taxi.exception.DistanceIsMoreThanStartDistanceException;
 import org.junit.Test;
-import strategy.StartingPriceStrategy;
+import homework.taxi.strategy.StartingPriceStrategy;
 
 import java.time.LocalDateTime;
 

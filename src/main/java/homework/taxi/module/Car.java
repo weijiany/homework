@@ -1,7 +1,7 @@
-package module;
+package homework.taxi.module;
 
-import strategy.PriceStrategyFactory;
-import strategy.StrategyType;
+import homework.taxi.strategy.PriceStrategyFactory;
+import homework.taxi.strategy.StrategyType;
 
 import java.time.LocalDateTime;
 

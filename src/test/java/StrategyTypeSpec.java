@@ -1,8 +1,8 @@
-import exception.StrategyTypeValueNotExistException;
+import homework.taxi.exception.StrategyTypeValueNotExistException;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import strategy.StrategyType;
+import homework.taxi.strategy.StrategyType;
 
 import java.util.Iterator;
 import java.util.List;

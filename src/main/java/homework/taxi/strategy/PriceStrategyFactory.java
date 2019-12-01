@@ -1,4 +1,4 @@
-package strategy;
+package homework.taxi.strategy;
 
 import java.time.LocalDateTime;
 

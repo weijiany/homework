@@ -1,7 +1,9 @@
-import exception.DomainException;
-import exception.StrategyTypeValueNotExistException;
-import module.Car;
-import strategy.StrategyType;
+package homework.taxi;
+
+import homework.taxi.exception.DomainException;
+import homework.taxi.exception.StrategyTypeValueNotExistException;
+import homework.taxi.module.Car;
+import homework.taxi.strategy.StrategyType;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -15,6 +17,8 @@ public class Main {
 
     public static void run() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to use taxi billing system");
+        System.out.println("---------------------------------------------------");
         System.out.println("Price strategy:");
         Arrays.stream(StrategyType.values()).forEach(type -> System.out.println("\t" + type.name() + ": " + type.value));
         Car car = new Car();
