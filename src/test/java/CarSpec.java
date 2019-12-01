@@ -1,5 +1,6 @@
 import exception.InvalidTimeException;
 import exception.KilometerMusBeNonNegativeException;
+import module.Car;
 import org.junit.Before;
 import org.junit.Test;
 import strategy.StrategyType;

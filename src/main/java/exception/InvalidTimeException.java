@@ -1,6 +1,6 @@
 package exception;
 
-public class InvalidTimeException extends RuntimeException {
+public class InvalidTimeException extends DomainException {
 
     public static final String MESSAGE = "End date must be more than start date.";
 

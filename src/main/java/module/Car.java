@@ -1,3 +1,5 @@
+package module;
+
 import strategy.PriceStrategyFactory;
 import strategy.StrategyType;
 

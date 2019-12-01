@@ -1,5 +1,6 @@
 package strategy;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class TrafficCompensationPriceStrategy extends PriceStrategy {
@@ -12,7 +13,7 @@ public class TrafficCompensationPriceStrategy extends PriceStrategy {
     public int cost() {
         int priceDistance = (int) (Math.ceil(kilometer) * StrategyConst.PER_KILOMETER_COST);
 
-        int minute = endAt.getMinute() - startAt.getMinute();
+        int minute = (int) (Duration.between(startAt, endAt).getSeconds() / 60);
         double speed = kilometer * 60 / minute;
 
         return (speed < StrategyConst.AVERAGE_SPEED)
