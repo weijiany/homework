@@ -1,14 +1,18 @@
 package homework.taxi.module;
 
-import homework.taxi.strategy.PriceStrategyFactory;
-import homework.taxi.strategy.StrategyType;
-
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 
 public class Car {
 
-    public int run(LocalDateTime startAt, LocalDateTime endAt, double kilometer, StrategyType type) {
-//        return PriceStrategyFactory.create(startAt, endAt, kilometer, type).cost();
-        return 0;
+    private Distance distance;
+
+    public Car(LocalDateTime startAt, LinkedList<BigDecimal> distancePerSecond) {
+        distance = new Distance(startAt, distancePerSecond);
+    }
+
+    public int run() {
+        return distance.merge().stream().map(PeriodDistance::cost).mapToInt(Integer::intValue).sum();
     }
 }

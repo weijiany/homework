@@ -1,13 +1,14 @@
 package homework.taxi;
 
 import homework.taxi.exception.DomainException;
-import homework.taxi.exception.StrategyTypeValueNotExistException;
 import homework.taxi.module.Car;
-import homework.taxi.strategy.StrategyType;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -20,25 +21,20 @@ public class Main {
         System.out.println("Welcome to use taxi billing system");
         System.out.println("---------------------------------------------------");
         System.out.println("Price strategy:");
-        Arrays.stream(StrategyType.values()).forEach(type -> System.out.println("\t" + type.name() + ": " + type.value));
-        Car car = new Car();
 
         while (true) {
             try {
-                System.out.println("please input start time, end time, distance and price strategy. Delimiter is ','");
-                String[] inputs = scanner.next().split(",");
-                if (inputs.length != 4) {
+                System.out.println("please input start time, distance per second. for example: yyyy-MM-ddTHH:mm:ss;0.02,0.08");
+                String[] inputs = scanner.next().split(";");
+                if (inputs.length != 2) {
                     System.out.println("input not correct");
                     continue;
                 }
                 LocalDateTime startAt = LocalDateTime.parse(inputs[0]);
-                LocalDateTime endAt = LocalDateTime.parse(inputs[1]);
-                double distance = Double.parseDouble(inputs[2]);
-                int typeValue = Integer.parseInt(inputs[3]);
-                StrategyType strategyType = StrategyType.fromValue(typeValue);
-                int cost = car.run(startAt, endAt, distance, strategyType);
+                LinkedList<BigDecimal> distancePerSecond = Arrays.stream(inputs[1].split(",")).map(BigDecimal::new).collect(Collectors.toCollection(LinkedList::new));
+                int cost = new Car(startAt, distancePerSecond).run();
                 System.out.println("cost: " + cost);
-            } catch (DomainException | StrategyTypeValueNotExistException e) {
+            } catch (DomainException e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -25,4 +25,11 @@ public class TrafficCompensationPriceStrategySpec {
 
         assertEquals(121, cost);
     }
+
+    @Test
+    public void should_return_total_cost_when_input_second_less_than_60_second() {
+        int cost = new TrafficCompensationPriceStrategy(1, 120).cost();
+
+        assertEquals(121, cost);
+    }
 }
