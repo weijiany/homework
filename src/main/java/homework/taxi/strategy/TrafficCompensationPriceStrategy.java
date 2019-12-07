@@ -1,19 +1,16 @@
 package homework.taxi.strategy;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 public class TrafficCompensationPriceStrategy extends PriceStrategy {
 
-    public TrafficCompensationPriceStrategy(LocalDateTime startAt, LocalDateTime endAt, double kilometer) {
-        super(startAt, endAt, kilometer);
+    public TrafficCompensationPriceStrategy(int second, double kilometer) {
+        super(second, kilometer);
     }
 
     @Override
     public int cost() {
         int priceDistance = (int) (Math.ceil(kilometer) * StrategyConst.PER_KILOMETER_COST);
 
-        int minute = (int) (Duration.between(startAt, endAt).getSeconds() / 60);
+        int minute = second / 60;
         double speed = kilometer * 60 / minute;
 
         return (speed < StrategyConst.AVERAGE_SPEED)

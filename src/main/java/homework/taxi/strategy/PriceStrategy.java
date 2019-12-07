@@ -7,16 +7,14 @@ import java.time.LocalDateTime;
 
 public abstract class PriceStrategy {
 
-    protected LocalDateTime startAt;
-    protected LocalDateTime endAt;
+    protected int second;
     protected double kilometer;
 
-    public PriceStrategy(LocalDateTime startAt, LocalDateTime endAt, double kilometer) {
+    public PriceStrategy(int second, double kilometer) {
         checkKilometerNonNegative(kilometer);
-        checkTimeIsValid(startAt, endAt);
+        checkTimeIsValid(second);
 
-        this.startAt = startAt;
-        this.endAt = endAt;
+        this.second = second;
         this.kilometer = kilometer;
     }
 
@@ -25,8 +23,8 @@ public abstract class PriceStrategy {
             throw new KilometerMusBeNonNegativeException();
     }
 
-    private void checkTimeIsValid(LocalDateTime startAt, LocalDateTime endAt) {
-        if (!startAt.isBefore(endAt))
+    private void checkTimeIsValid(int second) {
+        if (second < 0)
             throw new InvalidTimeException();
     }
 

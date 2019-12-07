@@ -2,12 +2,10 @@ package homework.taxi.strategy;
 
 import homework.taxi.exception.DistanceIsMoreThanStartDistanceException;
 
-import java.time.LocalDateTime;
-
 public class StartingPriceStrategy extends PriceStrategy {
 
-    public StartingPriceStrategy(LocalDateTime startAt, LocalDateTime endAt, double kilometer) {
-        super(startAt, endAt, kilometer);
+    public StartingPriceStrategy(int second, double kilometer) {
+        super(second, kilometer);
         checkKilometerExceedStartDistance(kilometer);
     }
 

@@ -11,7 +11,7 @@ public class StartingPriceStrategySpec {
 
     @Test
     public void should_return_start_price_when_input_two_kilometer_in_starting_distance() {
-        int cost = new StartingPriceStrategy(LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), 2).cost();
+        int cost = new StartingPriceStrategy(60, 2).cost();
 
         assertEquals(3 , cost);
     }
@@ -19,13 +19,13 @@ public class StartingPriceStrategySpec {
     @Test
     public void should_throw_DistanceIsMoreThanStartDistanceException_when_input_kilometer_more_than_start_distance() {
         RuntimeException exception = assertThrows(DistanceIsMoreThanStartDistanceException.class,
-                () -> new StartingPriceStrategy(LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), 3));
+                () -> new StartingPriceStrategy(60, 3));
         assertEquals(DistanceIsMoreThanStartDistanceException.MESSAGE, exception.getMessage());
     }
 
     @Test
     public void should_return_start_price_when_car_run_one_point_one_kilometer_in_starting_distance() {
-        int cost = new StartingPriceStrategy(LocalDateTime.now(), LocalDateTime.now().plusMinutes(1), 1.1).cost();
+        int cost = new StartingPriceStrategy(60, 1.1).cost();
 
         assertEquals(3 , cost);
     }
