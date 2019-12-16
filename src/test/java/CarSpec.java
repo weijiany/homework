@@ -1,5 +1,5 @@
 import homework.taxi.exception.KilometerMusBeNonNegativeException;
-import homework.taxi.module.Car;
+import homework.taxi.model.Journey;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -12,41 +12,36 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CarSpec {
 
-    private final BigDecimal START_DISTANCE = BigDecimal.valueOf(2);
-    private final BigDecimal OVER_SPEED = BigDecimal.valueOf(120.0 / 60 / 60);
-    private LocalDateTime nightTime = LocalDateTime.parse("2019-11-26T23:00:00");
-    private LocalDateTime dayTime = LocalDateTime.parse("2019-11-26T08:00:00");
-
     @Test
-    public void should_return_start_price_when_car_run_two_kilometer_in_starting_distance() {
-        assertEquals(3 , new Car(LocalDateTime.now(), new LinkedList<>(List.of(START_DISTANCE))).cost());
+    public void should_return_start_price_when_car_run_in_starting_distance() {
+        assertEquals(3 , new Journey(LocalDateTime.now(), new LinkedList<>(List.of(Constant.START_DISTANCE))).cost());
     }
 
     @Test
     public void should_include_traffic_compensation_given_not_over_speed_at_day_time_after_starting_distance() {
-        BigDecimal notOverSpeed = OVER_SPEED.subtract(BigDecimal.valueOf(0.01d));
-        assertEquals(6, new Car(dayTime, new LinkedList<>(List.of(START_DISTANCE, notOverSpeed))).cost());
+        BigDecimal notOverSpeed = Constant.OVER_SPEED_DISTANCE.subtract(BigDecimal.valueOf(0.01d));
+        assertEquals(6, new Journey(Constant.DAY_TIME, new LinkedList<>(List.of(Constant.START_DISTANCE, notOverSpeed))).cost());
     }
 
     @Test
     public void should_not_include_traffic_compensation_given_not_over_speed_at_day_time_after_starting_distance() {
-        assertEquals(5, new Car(dayTime, new LinkedList<>(List.of(START_DISTANCE, OVER_SPEED))).cost());
+        assertEquals(5, new Journey(Constant.DAY_TIME, new LinkedList<>(List.of(Constant.START_DISTANCE, Constant.OVER_SPEED_DISTANCE))).cost());
     }
 
     @Test
-    public void should_include_and_day_night_given_over_speed_at_day_time_after_starting_distance() {
-        assertEquals(6, new Car(nightTime, new LinkedList<>(List.of(START_DISTANCE, OVER_SPEED))).cost());
+    public void should_return_cost_when_drive_at_night_given_over_speed_at_day_time_after_starting_distance() {
+        assertEquals(6, new Journey(Constant.NIGHT_TIME, new LinkedList<>(List.of(Constant.START_DISTANCE, Constant.OVER_SPEED_DISTANCE))).cost());
     }
 
     @Test
-    public void should_include_traffic_compensation_and_day_night_given_over_speed_at_day_time_after_starting_distance() {
-        BigDecimal notOverSpeed = OVER_SPEED.subtract(BigDecimal.valueOf(0.01d));
-        assertEquals(7, new Car(nightTime, new LinkedList<>(List.of(START_DISTANCE, notOverSpeed))).cost());
+    public void should_include_traffic_compensation_and_at_night_given_over_speed_at_day_time_after_starting_distance() {
+        BigDecimal notOverSpeed = Constant.OVER_SPEED_DISTANCE.subtract(BigDecimal.valueOf(0.01d));
+        assertEquals(7, new Journey(Constant.NIGHT_TIME, new LinkedList<>(List.of(Constant.START_DISTANCE, notOverSpeed))).cost());
     }
 
     @Test
     public void should_throw_exception_when_car_run_given_negative_kilometer() {
-        RuntimeException exception = assertThrows(KilometerMusBeNonNegativeException.class, () -> new Car(dayTime, new LinkedList<>(List.of(BigDecimal.valueOf(-1)))));
+        RuntimeException exception = assertThrows(KilometerMusBeNonNegativeException.class, () -> new Journey(Constant.DAY_TIME, new LinkedList<>(List.of(BigDecimal.valueOf(-1)))));
         assertEquals(KilometerMusBeNonNegativeException.MESSAGE, exception.getMessage());
     }
 }

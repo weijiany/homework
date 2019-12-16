@@ -1,21 +1,16 @@
 package homework.taxi.strategy;
 
-import homework.taxi.exception.DistanceIsMoreThanStartDistanceException;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Queue;
 
-public class StartingPriceStrategy extends PriceStrategy {
+public class StartingPriceStrategy implements PriceStrategy {
 
-    public StartingPriceStrategy(int second, double kilometer) {
-        super(second, kilometer);
-        checkKilometerExceedStartDistance(kilometer);
-    }
-
-    private void checkKilometerExceedStartDistance(double kilometer) {
-        if (kilometer > StrategyConst.STRING_DISTANCE)
-            throw new DistanceIsMoreThanStartDistanceException();
+    public StartingPriceStrategy() {
     }
 
     @Override
-    public int cost() {
+    public int cost(LocalDateTime startAt, Queue<BigDecimal> distancePerSecond) {
         return StrategyConst.STRING_PRICE;
     }
 }

@@ -1,14 +1,10 @@
 package homework.taxi.strategy;
 
-public abstract class PriceStrategy {
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Queue;
 
-    protected int second;
-    protected double kilometer;
+public interface PriceStrategy {
 
-    public PriceStrategy(int second, double kilometer) {
-        this.second = second;
-        this.kilometer = kilometer;
-    }
-
-    public abstract int cost();
+    int cost(LocalDateTime startAt, Queue<BigDecimal> distancePerSecond);
 }
