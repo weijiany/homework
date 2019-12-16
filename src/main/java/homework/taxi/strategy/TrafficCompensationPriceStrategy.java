@@ -10,7 +10,6 @@ public class TrafficCompensationPriceStrategy extends PriceStrategy {
     public int cost() {
         int priceDistance = (int) (Math.ceil(kilometer) * StrategyConst.PER_KILOMETER_COST);
 
-        // second may be less than 60
         int minute = (int) Math.ceil((double) second / 60);
         int speed = (int) Math.ceil(kilometer * 60 * 60 / second);
 

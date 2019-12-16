@@ -12,7 +12,7 @@ public class Car {
         distance = new Distance(startAt, distancePerSecond);
     }
 
-    public int run() {
+    public int cost() {
         return distance.merge().stream().map(PeriodDistance::cost).mapToInt(Integer::intValue).sum();
     }
 }

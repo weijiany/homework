@@ -32,7 +32,7 @@ public class Main {
                 }
                 LocalDateTime startAt = LocalDateTime.parse(inputs[0]);
                 LinkedList<BigDecimal> distancePerSecond = Arrays.stream(inputs[1].split(",")).map(BigDecimal::new).collect(Collectors.toCollection(LinkedList::new));
-                int cost = new Car(startAt, distancePerSecond).run();
+                int cost = new Car(startAt, distancePerSecond).cost();
                 System.out.println("cost: " + cost);
             } catch (DomainException e) {
                 System.out.println(e.getMessage());
