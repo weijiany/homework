@@ -14,14 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainSpec {
 
-    static class CarStub extends Car {
-
-        @Override
-        public void run() {
-            logic();
-        }
-    }
-
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
     private final InputStream originalIn = System.in;
@@ -38,25 +30,25 @@ public class MainSpec {
     }
 
     @Test
-    public void should_return_start_price_when_car_run_in_starting_distance() {
+    public void should_return_start_price_when_car_run_in_starting_distance() throws Exception {
         provideInput(LocalDateTime.now().toString() + ";2");
-        new CarStub().run();
+        new Car().run();
 
         assertEquals("cost: 3\n", outContent.toString());
     }
 
     @Test
-    public void should_include_traffic_compensation_given_not_over_speed_at_day_time_after_starting_distance() {
+    public void should_include_traffic_compensation_given_not_over_speed_at_day_time_after_starting_distance() throws Exception {
         provideInput(Constant.DAY_TIME.toString() + ";2," + Constant.OVER_SPEED_DISTANCE.subtract(BigDecimal.valueOf(0.01d)).doubleValue());
-        new CarStub().run();
+        new Car().run();
 
         assertEquals("cost: 6\n", outContent.toString());
     }
 
     @Test
-    public void should_include_traffic_compensation_and_at_night_given_over_speed_at_day_time_after_starting_distance() {
+    public void should_include_traffic_compensation_and_at_night_given_over_speed_at_day_time_after_starting_distance() throws Exception {
         provideInput(Constant.NIGHT_TIME.toString() + ";2," + Constant.OVER_SPEED_DISTANCE.doubleValue());
-        new CarStub().run();
+        new Car().run();
 
         assertEquals("cost: 6\n", outContent.toString());
     }
