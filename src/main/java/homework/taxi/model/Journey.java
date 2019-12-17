@@ -22,14 +22,14 @@ public class Journey {
             new DriveAtNightPriceStrategy()
     );
 
-    public Journey(LocalDateTime startAt, LinkedList<BigDecimal> distancePerSecond) {
+    public Journey(LocalDateTime startAt, LinkedList<BigDecimal> distancePerSecond) throws KilometerMusBeNonNegativeException {
         checkDistanceIsNonNegative(distancePerSecond);
 
         this.startAt = startAt;
         this.distancePerSecond = distancePerSecond;
     }
 
-    private void checkDistanceIsNonNegative(LinkedList<BigDecimal> distancePerSecond) {
+    private void checkDistanceIsNonNegative(LinkedList<BigDecimal> distancePerSecond) throws KilometerMusBeNonNegativeException {
         if (distancePerSecond.stream().anyMatch(d -> d.doubleValue() <= 0))
             throw new KilometerMusBeNonNegativeException();
     }

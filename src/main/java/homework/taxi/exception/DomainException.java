@@ -1,6 +1,6 @@
 package homework.taxi.exception;
 
-public abstract class DomainException extends RuntimeException {
+public abstract class DomainException extends Exception {
 
     public DomainException() {
     }
