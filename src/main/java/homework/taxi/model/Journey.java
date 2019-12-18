@@ -29,6 +29,9 @@ public class Journey {
         int cost = Const.STRING_PRICE;
         int startSeconds = Util.skipStartDistance(distancePerSecond);
 
+        if (!distancePerSecond.isEmpty())
+            cost += Const.FUEL_COST;
+
         boolean isNight = Util.isAtNight(startAt, startAt.plusSeconds(startSeconds));
         while (!distancePerSecond.isEmpty()) {
             if (isNight)
@@ -47,12 +50,9 @@ public class Journey {
         int minute = period.getMinute();
         int speed = period.getSpeed();
 
-        if (speed == 0)
-            return 0;
-        else if (speed < Const.AVERAGE_SPEED)
-            return priceDistance + minute * Const.PER_MINUTE_COST + Const.FUEL_COST;
-        else
-            return priceDistance + Const.FUEL_COST;
+        return speed < Const.AVERAGE_SPEED
+                ? priceDistance + minute * Const.PER_MINUTE_COST
+                : priceDistance;
     }
 
     private int costForDriveAtNight() {
@@ -63,12 +63,10 @@ public class Journey {
         int minute = period.getMinute();
         int speed = period.getSpeed();
 
-        if (speed == 0)
-            return 0;
-        else if (speed < Const.AVERAGE_SPEED)
-            return priceDistance + minute * Const.PER_MINUTE_COST + Const.FUEL_COST + (int)Math.ceil(period.getDistance().doubleValue());
-        else
-            return priceDistance + Const.FUEL_COST + (int)Math.ceil(period.getDistance().doubleValue());
+        int drivingNightCost = (int) Math.ceil(period.getDistance().doubleValue());
+        return speed < Const.AVERAGE_SPEED
+                ? priceDistance + minute * Const.PER_MINUTE_COST + drivingNightCost
+                : priceDistance + drivingNightCost;
     }
 }
 
