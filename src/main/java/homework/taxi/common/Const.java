@@ -1,6 +1,6 @@
-package homework.taxi.strategy;
+package homework.taxi.common;
 
-public interface StrategyConst {
+public interface Const {
     int PER_KILOMETER_COST = 1;
     int AVERAGE_SPEED = 120;
     int PER_MINUTE_COST = 1;

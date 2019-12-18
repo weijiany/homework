@@ -1,4 +1,4 @@
-package homework.taxi.strategy;
+package homework.taxi.common;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,14 +14,17 @@ public abstract class Util {
         return targetTime.isAfter(leftTime) && targetTime.isBefore(rightTime);
     }
 
-    public static void skipStartDistance(Queue<BigDecimal> distancePerSecond) {
+    public static int skipStartDistance(Queue<BigDecimal> distancePerSecond) {
+        int second = 0;
         BigDecimal distance = getInitDistance();
         while (!distancePerSecond.isEmpty()) {
+            second ++;
             BigDecimal space = distancePerSecond.poll();
             distance = distance.add(space);
-            if (distance.doubleValue() >= StrategyConst.STRING_DISTANCE)
+            if (distance.doubleValue() >= Const.STRING_DISTANCE)
                 break;
         }
+        return second;
     }
 
     public static BigDecimal getInitDistance() {

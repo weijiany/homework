@@ -1,26 +1,17 @@
 package homework.taxi.model;
 
+import homework.taxi.common.Const;
+import homework.taxi.common.Util;
 import homework.taxi.exception.KilometerMusBeNonNegativeException;
-import homework.taxi.strategy.DriveAtNightPriceStrategy;
-import homework.taxi.strategy.PriceStrategy;
-import homework.taxi.strategy.StartingPriceStrategy;
-import homework.taxi.strategy.TrafficCompensationPriceStrategy;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 public class Journey {
 
     private LocalDateTime startAt;
     private LinkedList<BigDecimal> distancePerSecond;
-    private List<PriceStrategy> strategies = List.of(
-            new StartingPriceStrategy(),
-            new TrafficCompensationPriceStrategy(),
-            new DriveAtNightPriceStrategy()
-    );
 
     public Journey(LocalDateTime startAt, LinkedList<BigDecimal> distancePerSecond) throws KilometerMusBeNonNegativeException {
         checkDistanceIsNonNegative(distancePerSecond);
@@ -35,6 +26,49 @@ public class Journey {
     }
 
     public int cost() {
-        return strategies.stream().map(s -> s.cost(startAt, Queue.class.cast(distancePerSecond.clone()))).mapToInt(Integer::intValue).sum();
+        int cost = Const.STRING_PRICE;
+        int startSeconds = Util.skipStartDistance(distancePerSecond);
+
+        boolean isNight = Util.isAtNight(startAt, startAt.plusSeconds(startSeconds));
+        while (!distancePerSecond.isEmpty()) {
+            if (isNight)
+                cost += costForDriveAtNight();
+            else
+                cost += costForTrafficCompensation();
+        }
+        return cost;
+    }
+
+    private int costForTrafficCompensation() {
+        Period period = new Period(second -> Util.isAtNight(startAt, startAt.plusSeconds(second)), distancePerSecond);
+
+        int priceDistance = period.getPriceDistance();
+
+        int minute = period.getMinute();
+        int speed = period.getSpeed();
+
+        if (speed == 0)
+            return 0;
+        else if (speed < Const.AVERAGE_SPEED)
+            return priceDistance + minute * Const.PER_MINUTE_COST + Const.FUEL_COST;
+        else
+            return priceDistance + Const.FUEL_COST;
+    }
+
+    private int costForDriveAtNight() {
+        Period period = new Period(second -> !Util.isAtNight(startAt, startAt.plusSeconds(second)), distancePerSecond);
+
+        int priceDistance = period.getPriceDistance();
+
+        int minute = period.getMinute();
+        int speed = period.getSpeed();
+
+        if (speed == 0)
+            return 0;
+        else if (speed < Const.AVERAGE_SPEED)
+            return priceDistance + minute * Const.PER_MINUTE_COST + Const.FUEL_COST + (int)Math.ceil(period.getDistance().doubleValue());
+        else
+            return priceDistance + Const.FUEL_COST + (int)Math.ceil(period.getDistance().doubleValue());
     }
 }
+
