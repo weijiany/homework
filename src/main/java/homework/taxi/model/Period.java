@@ -11,13 +11,13 @@ class Period {
     private BigDecimal distance;
     private int second;
 
-    public Period(Function<Integer, Boolean> condition, LinkedList<BigDecimal> distancePerSecond) {
-        BigDecimal distance = Util.getInitDistance();
+    public Period(Function<Integer, Boolean> isNight, LinkedList<BigDecimal> distancePerSecond) {
+        BigDecimal distance = Util.getDecimalWithPrecision(2);
 
         int second = 0;
         while (!distancePerSecond.isEmpty()) {
             second ++;
-            if (condition.apply(second))
+            if (isNight.apply(second))
                 break;
             distance = distance.add(distancePerSecond.pop());
         }

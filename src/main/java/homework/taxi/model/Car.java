@@ -19,8 +19,11 @@ public class Car {
             System.out.println("input not correct");
             return;
         }
+
         LocalDateTime startAt = LocalDateTime.parse(inputs[0]);
-        LinkedList<BigDecimal> distancePerSecond = Arrays.stream(inputs[1].split(",")).map(BigDecimal::new).collect(Collectors.toCollection(LinkedList::new));
+        LinkedList<BigDecimal> distancePerSecond = Arrays.stream(inputs[1].split(","))
+                .map(BigDecimal::new)
+                .collect(Collectors.toCollection(LinkedList::new));
         int cost = new Journey(startAt, distancePerSecond).cost();
         System.out.println("cost: " + cost);
     }
